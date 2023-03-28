@@ -25,4 +25,12 @@ public class MembreService {
         return this.membreRepository.findAll();
     }
 
+    public Membre ajouterMembre(Membre m) throws SQLException{
+        return this.membreRepository.save(m);
+    }
+
+    public void supprimerMembre(Long id){
+        this.membreRepository.deleteById(id);
+    }
+
 }
