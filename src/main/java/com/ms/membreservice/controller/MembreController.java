@@ -29,9 +29,9 @@ public class MembreController {
     @GetMapping("/{id}")
     public Membre getMembreById(@PathVariable Long id) {
         try {
-            List<Invitation> invitations = this.invitationFeignClient.getInvitationsByMembreId(id);
+            //List<Invitation> invitations = this.invitationFeignClient.getInvitationsByMembreId(id);
             Membre membre =  membreService.findMembreById(id);
-            membre.setInvitations(invitations);
+            //membre.setInvitations(invitations);
             return membre;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
