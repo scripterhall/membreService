@@ -36,5 +36,4 @@ public class Membre extends Personne{
 
     @Transient
     private List<Invitation> invitations;
-    
 }

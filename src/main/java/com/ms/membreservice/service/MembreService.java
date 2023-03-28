@@ -10,17 +10,11 @@ import com.ms.membreservice.entity.Membre;
 
 @Service
 public class MembreService {
-    
-
     @Autowired
     private MembreRepository membreRepository;
-
-
     public Membre findMembreById(Long id) throws SQLException{
         return this.membreRepository.findById(id).get();
     }
-
-
     public List<Membre> findAllMembres() throws SQLException{
         return this.membreRepository.findAll();
     }

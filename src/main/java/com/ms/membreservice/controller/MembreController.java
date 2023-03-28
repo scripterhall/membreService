@@ -1,9 +1,10 @@
 package com.ms.membreservice.controller;
 
 import java.sql.SQLException;
-
+import java.util.Collections;
 import java.util.List;
 
+import com.ms.membreservice.model.HistoireTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,14 +21,15 @@ import com.ms.membreservice.entity.Membre;
 import com.ms.membreservice.model.Invitation;
 import com.ms.membreservice.service.InvitationFeignClient;
 import com.ms.membreservice.service.MembreService;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/membres")
 public class MembreController {
-
+    @Autowired
+    private RestTemplate restTemplate;
     @Autowired
     private MembreService membreService;
-
     @Autowired
     private InvitationFeignClient invitationFeignClient;
 
@@ -46,33 +48,26 @@ public class MembreController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Membre> getMembreById(@PathVariable Long id) {
+    public Membre getMembreById(@PathVariable Long id) {
         try {
-            //List<Invitation> invitations = this.invitationFeignClient.getInvitationsByMembreId(id);
+            List<Invitation> invitations = this.invitationFeignClient.getInvitationsByMembreId(id);
             Membre membre =  membreService.findMembreById(id);
-            //membre.setInvitations(invitations);
-            return ResponseEntity.ok()
-                   .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                   .body(membre);
-
+            membre.setInvitations(invitations);
+            return membre;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return ResponseEntity.notFound().build();
+            return null;
         }
     }
-
     @GetMapping()
-    public ResponseEntity<List<Membre>> getallMembre(){
+    public List<Membre> getallMembre(){
         try {
-            List<Membre> membres = this.membreService.findAllMembres();
-            return ResponseEntity.ok()
-                   .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                   .body(membres);
+            return this.membreService.findAllMembres();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return ResponseEntity.notFound().build();
+            return Collections.emptyList(); 
         }
     }
 
@@ -82,4 +77,9 @@ public class MembreController {
         return ResponseEntity.noContent().build();
     }
     
+    @GetMapping("/{membreId}/histoiresTickets")
+    public List<HistoireTicket> getHistoireTicketsByMembreId(@PathVariable Long membreId) {
+        String url = "http://localhost:9999/gestion-histoire-ticket/histoireTickets/membre/" + membreId;
+        return restTemplate.getForObject(url, List.class);
+    }
 }

@@ -10,8 +10,6 @@ import com.ms.membreservice.model.Invitation;
 
 @FeignClient(name = "invitation-service")
 public interface InvitationFeignClient {
-
-
     @GetMapping("/invitations/{idMembre}")
     public List<Invitation> getInvitationsByMembreId(@PathVariable("idMembre") Long id);
     
