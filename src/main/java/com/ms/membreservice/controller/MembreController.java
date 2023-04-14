@@ -1,7 +1,6 @@
 package com.ms.membreservice.controller;
 
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 import com.ms.membreservice.model.HistoireTicket;
@@ -67,7 +66,7 @@ public class MembreController {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return Collections.emptyList(); 
+            return null; 
         }
     }
 
