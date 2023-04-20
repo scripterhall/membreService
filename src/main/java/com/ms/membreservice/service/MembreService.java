@@ -20,11 +20,16 @@ public class MembreService {
     }
 
     public Membre ajouterMembre(Membre m) throws SQLException{
+        System.out.println(m.getDateInscription());
         return this.membreRepository.save(m);
     }
 
     public void supprimerMembre(Long id){
         this.membreRepository.deleteById(id);
+    }
+
+    public Membre getMembreByEmail(String email) throws SQLException{
+        return membreRepository.findByEmail(email);
     }
 
 }

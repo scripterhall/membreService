@@ -5,4 +5,5 @@ import com.ms.membreservice.entity.Membre;
 
 public interface MembreRepository extends JpaRepository<Membre,Long> {
     
+    Membre findByEmail(String email);
 }
