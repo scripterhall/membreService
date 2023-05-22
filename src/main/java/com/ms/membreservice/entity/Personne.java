@@ -26,6 +26,5 @@ public class Personne {
     private String pwd ;//password d'un personne
     @Column(name="date_inscription")
     private Date dateInscription ;//date inscription d'un personne
-    @Column(unique = true)
     private String username;//le nom d'utilisateur 
 }
