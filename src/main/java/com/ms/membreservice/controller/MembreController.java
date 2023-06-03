@@ -80,7 +80,7 @@ public class MembreController {
     
     @GetMapping("/{membreId}/histoiresTickets")
     public List<HistoireTicket> getHistoireTicketsByMembreId(@PathVariable Long membreId) {
-        String url = "http://localhost:9999/gestion-histoire-ticket/histoireTickets/membre/" + membreId;
+        String url = "http://localhost:8086/histoireTickets/membre/" + membreId;
         return restTemplate.getForObject(url, List.class);
     }
 
