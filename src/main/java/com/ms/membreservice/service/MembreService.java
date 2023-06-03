@@ -13,16 +13,21 @@ public class MembreService {
     @Autowired
     private MembreRepository membreRepository;
     public Membre findMembreById(Long id) throws SQLException{
-        return this.membreRepository.findById(id).get();
+        if (this.membreRepository.findById(id).isPresent()){
+            return this.membreRepository.findById(id).get();
+        }else{
+            return null;
+        }
     }
     public List<Membre> findAllMembres() throws SQLException{
+        //System.out.println(this.membreRepository.findAll().get(0).getPhoto());
         return this.membreRepository.findAll();
     }
 
     public Membre ajouterMembre(Membre m) throws SQLException{
-        System.out.println(m.getDateInscription());
         return this.membreRepository.save(m);
     }
+
 
     public void supprimerMembre(Long id){
         this.membreRepository.deleteById(id);

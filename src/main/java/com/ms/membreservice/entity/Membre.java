@@ -4,14 +4,8 @@ import java.util.List;
 
 import com.ms.membreservice.model.Invitation;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,4 +30,8 @@ public class Membre extends Personne{
 
     @Transient
     private List<Invitation> invitations;
+
+    @Column
+    @Nullable
+    private byte[] photo;
 }
